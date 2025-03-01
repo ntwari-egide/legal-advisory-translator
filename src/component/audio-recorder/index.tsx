@@ -197,7 +197,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onRecordingComplete, onAd
       <div className='flex flex-col justify-center items-center justify-items-center space-y-8'>
         <h1 className='text-center font-medium text-[2.7vh]'>
           {isRecording ? `Recording... ${formatTime(recordingTime)}` : 
-           isUploading ? `Uploading... ${uploadProgress}%` :
+           isUploading ? `Processing... ${uploadProgress}%` :
            audioUrl ? 'Recording complete' : 'Click to record'}
         </h1>
         
@@ -205,7 +205,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onRecordingComplete, onAd
           // Record button
           <div 
             onClick={toggleRecording}
-            className={`h-20 w-20 cursor-pointer hover:scale-[1.07] transition-all ${isRecording ? 'bg-red-600' : 'bg-[#FE4A22]'} rounded-full flex justify-items-center items-center justify-center`}
+            className={`h-20 w-20 cursor-pointer hover:scale-[1.07] transition-all ${isRecording ? 'bg-[#FE9EC6]' : 'bg-[#FE4A22]'} rounded-full flex justify-items-center items-center justify-center`}
           >
             {isRecording ? (
               <RiStopFill className='text-white text-3xl' />
@@ -236,7 +236,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onRecordingComplete, onAd
                 {isUploading ? (
                   <>
                     <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
-                    Uploading...
+                    processing...
                   </>
                 ) : (
                   <>
@@ -264,9 +264,9 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onRecordingComplete, onAd
         
         {isRecording && (
           <div className='animate-pulse flex space-x-1'>
-            <div className='w-2 h-2 bg-red-600 rounded-full'></div>
-            <div className='w-2 h-2 bg-red-600 rounded-full'></div>
-            <div className='w-2 h-2 bg-red-600 rounded-full'></div>
+            <div className='w-2 h-2 bg-[#FE9EC6] rounded-full'></div>
+            <div className='w-2 h-2 bg-[#FE9EC6] rounded-full'></div>
+            <div className='w-2 h-2 bg-[#FE9EC6] rounded-full'></div>
           </div>
         )}
         
