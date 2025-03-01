@@ -12,7 +12,7 @@ export function openGraph({
   templateTitle,
   description,
   // !STARTERCONF Or, you can use my server with your own logo.
-  logo = 'https://og.<your-domain>/images/logo.jpg',
+  logo = "https://og.<your-domain>/images/logo.jpg",
 }: OpenGraphType): string {
   const ogLogo = encodeURIComponent(logo);
   const ogSiteName = encodeURIComponent(siteName.trim());
@@ -22,19 +22,19 @@ export function openGraph({
   const ogDesc = encodeURIComponent(description.trim());
 
   return `https://og.<your-domain>/api/general?siteName=${ogSiteName}&description=${ogDesc}&logo=${ogLogo}${
-    ogTemplateTitle ? `&templateTitle=${ogTemplateTitle}` : ''
+    ogTemplateTitle ? `&templateTitle=${ogTemplateTitle}` : ""
   }`;
 }
 
 export function getFromLocalStorage(key: string): string | null {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     return window.localStorage.getItem(key);
   }
   return null;
 }
 
 export function getFromSessionStorage(key: string): string | null {
-  if (typeof sessionStorage !== 'undefined') {
+  if (typeof sessionStorage !== "undefined") {
     return sessionStorage.getItem(key);
   }
   return null;

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import CryptoJS from 'crypto-js';
+import CryptoJS from "crypto-js";
 
-const secretKey = 'Aadfasdflmkmadfifasdf023dsf';
+const secretKey = "Aadfasdflmkmadfifasdf023dsf";
 
 /**
  * Encrypts a stringified object.
@@ -13,8 +13,8 @@ export const encryptData = (data: string): string => {
     const encrypted = CryptoJS.AES.encrypt(data, secretKey).toString();
     return encrypted;
   } catch (error) {
-    console.error('Encryption failed:', error);
-    return ''; // Return an empty string if encryption fails
+    console.error("Encryption failed:", error);
+    return ""; // Return an empty string if encryption fails
   }
 };
 
@@ -25,8 +25,8 @@ export const encryptData = (data: string): string => {
  */
 export const decryptData = (encryptedData: string): string => {
   if (!encryptedData) {
-    console.error('No data to decrypt.');
-    return ''; // Return an empty string if no encrypted data is provided
+    console.error("No data to decrypt.");
+    return ""; // Return an empty string if no encrypted data is provided
   }
 
   try {
@@ -35,14 +35,14 @@ export const decryptData = (encryptedData: string): string => {
 
     if (!decrypted) {
       console.error(
-        'Decryption failed. Data may be corrupted or the wrong key may have been used.'
+        "Decryption failed. Data may be corrupted or the wrong key may have been used."
       );
-      return ''; // Return an empty string if decryption fails
+      return ""; // Return an empty string if decryption fails
     }
 
     return decrypted;
   } catch (error) {
-    console.error('Decryption failed:', error);
-    return ''; // Return an empty string if decryption fails
+    console.error("Decryption failed:", error);
+    return ""; // Return an empty string if decryption fails
   }
 };

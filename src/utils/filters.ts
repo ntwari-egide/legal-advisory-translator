@@ -12,7 +12,7 @@ export const getFilterOptions = (
   const filterOptions: Set<string> = new Set();
 
   const traverse = (obj: any) => {
-    if (typeof obj !== 'object' || obj === null) {
+    if (typeof obj !== "object" || obj === null) {
       return;
     }
 
@@ -24,7 +24,7 @@ export const getFilterOptions = (
         } else {
           filterOptions.add(filterOption);
         }
-      } else if (typeof obj[key] === 'object') {
+      } else if (typeof obj[key] === "object") {
         traverse(obj[key]);
       }
     }
@@ -46,14 +46,14 @@ export const getFilterOptions = (
 export const filterJobsHelper = (jobs: any[], filterOptions: any) => {
   // Helper function to traverse nested objects and find the value of a given key
   const traverse = (obj: any, key: string): any => {
-    if (typeof obj !== 'object' || obj === null) {
+    if (typeof obj !== "object" || obj === null) {
       return null;
     }
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
       return obj[key];
     }
     for (const k in obj) {
-      if (typeof obj[k] === 'object') {
+      if (typeof obj[k] === "object") {
         const result = traverse(obj[k], key);
         if (result !== undefined) {
           return result;

@@ -1,8 +1,8 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
-import api from '@/global/axios-config';
+import api from "@/global/axios-config";
 
-import { decryptData } from '../encryptions';
+import { decryptData } from "../encryptions";
 
 export const validateJwtToken = async (): Promise<boolean> => {
   try {
@@ -15,14 +15,14 @@ export const validateJwtToken = async (): Promise<boolean> => {
 
 export const getRealUserInfo = async () => {
   const storedData = JSON.parse(
-    decryptData(Cookies.get('user-credentials') || '')
+    decryptData(Cookies.get("user-credentials") || "")
   );
 
-  const response = await api.get('/auth/me', {
+  const response = await api.get("/auth/me", {
     headers: {
-      accept: '*/*',
+      accept: "*/*",
       Authorization: `Bearer ${storedData.token}`,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
