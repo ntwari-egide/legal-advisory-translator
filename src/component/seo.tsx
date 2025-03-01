@@ -1,7 +1,7 @@
 /**
  * @author: Egide Ntwali
  * @description: The SEO component, It is used to manage the SEO of the website and the pages
- * @par am {SeoProps} props The props of the SEO component
+ * @param {SeoProps} props The props of the SEO component
  * @param {string} date The date of the SEO component
  * @param {string} templateTitle The template title of the SEO component
  * @returns {JSX.Element} The SEO component
@@ -11,18 +11,13 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 const defaultMeta = {
-  title: "Legal AdvisoryAI | AI powered job search engine",
+  title: "Legal AdvisoryAI | AI Powered Legal Advisor",
   siteName: "Legal AdvisoryAI",
   description:
-    "Legal AdvisoryAI is an AI powered job search engine that helps you find the best jobs in any industry. We use machine learning to match you with the best jobs based on your skills and experience.",
-  /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
+    "Legal AdvisoryAI is an advanced AI-powered legal advisor providing expert legal guidance, document review, and legal insights. Our platform uses cutting-edge artificial intelligence to offer accurate legal support and streamline legal research for individuals and businesses.",
   url: "https://plaxisai.com",
   type: "website",
   robots: "follow, index",
-  /**
-   * No need to be filled, will be populated with openGraph function
-   * If you wish to use a normal image, just specify the path below
-   */
   image:
     "https://res.cloudinary.com/dpqasrwfu/image/upload/v1732817531/bdbc9gzv4homuk8xkk1v.png",
 };
@@ -39,7 +34,7 @@ export default function Seo(props: SeoProps) {
     ...props,
   };
   meta["title"] = props.templateTitle
-    ? `${props.templateTitle} | ${meta.siteName} - AI powered resume job matching engine`
+    ? `${props.templateTitle} | ${meta.siteName} - AI Powered Legal Advisor`
     : meta.title;
 
   return (
@@ -47,17 +42,17 @@ export default function Seo(props: SeoProps) {
       <title>{meta.title}</title>
       <meta
         name="title"
-        content="Legal AdvisoryAI | AI powered resume job matching engine"
+        content="Legal AdvisoryAI | AI Powered Legal Advisor"
       />
       {/* Description */}
       <meta
         name="description"
-        content="Legal AdvisoryAI is an AI powered job search engine that helps you find the best jobs in any industry. We use machine learning to match you with the best jobs based on your skills and experience."
+        content="Legal AdvisoryAI is an advanced AI-powered legal advisor providing expert legal guidance, document review, and legal insights. Our platform uses cutting-edge artificial intelligence to offer accurate legal support and streamline legal research for individuals and businesses."
       />
       {/* Keywords */}
       <meta
         name="keywords"
-        content="Legal AdvisoryAI, job search engine, AI powered job search engine, tech jobs, machine learning, job matching, job search, job search platform, job search website, job search app, job search tool, job search service, job search software, job search technology, job search company, job search site, job search engine website, job search engine app, job search engine tool, job search engine service, job search engine software, job search engine technology, job search engine company, job search engine site, job search engine platform, job search engine website, job search engine app, job search engine tool, job search engine service, job search engine software, job search engine technology, job search engine company, job search engine site, job search engine platform, job search engine website, job search engine app, job search engine tool, job search engine service, job search engine software, job search engine technology, job search engine company, job search engine site, job search engine platform"
+        content="Legal AdvisoryAI, AI-powered legal advisor, legal guidance, legal document review, legal technology, legal insights, AI legal assistant, legal research, legal support platform, expert legal solutions, AI law, legal tech, legal automation, legal AI tools"
       />
       {/* Author */}
       <meta name="author" content="Egide Ntwari" />
@@ -73,8 +68,6 @@ export default function Seo(props: SeoProps) {
       <meta name="image" property="og:image" content={meta.image} />
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      {/* // !STARTERCONF Remove or change to your handle */}
-      {/* <meta name='twitter:site' content='@th_clarence' /> */}
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:image" content={meta.image} />
@@ -86,7 +79,6 @@ export default function Seo(props: SeoProps) {
             property="og:publish_date"
             content={meta.date}
           />
-          {/* // !STARTERCONF Remove or change to your name */}
           <meta
             name="author"
             property="article:author"
@@ -106,8 +98,6 @@ export default function Seo(props: SeoProps) {
   );
 }
 
-// !STARTERCONF this is the default favicon, you can generate your own from https://realfavicongenerator.net/
-// ! then replace the whole /public/favicon folder and favicon.ico
 const favicons: Array<React.ComponentPropsWithoutRef<"link">> = [
   {
     rel: "apple-touch-icon",
