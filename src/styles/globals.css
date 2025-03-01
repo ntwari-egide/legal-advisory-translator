@@ -1,0 +1,359 @@
+/**
+  * This file is used to define global styles for the application.
+  * It is imported in _app.js and is therefore applied to all pages.
+  * It is also used to define Tailwind CSS classes and components.
+  */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'WhyteInktrap', sans-serif;
+  background-color: white;
+}
+
+h1 {
+  font-family: 'InterTight', sans-serif;
+}
+
+.whyteInktrap_font {
+  font-family: 'WhyteInktrap', sans-serif !important;
+}
+
+.inter-tight {
+  font-family: 'InterTight', sans-serif !important;
+}
+
+h1 {
+  color: #09090d;
+}
+
+p {
+  font-size: 2vh;
+  font-weight: normal !important;
+}
+
+.button-gradient {
+  /* linear gradient of three colors  */
+  background: linear-gradient(260deg, #19242c 0%, #09090d 53%, #1c110e 100%);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid #173440;
+}
+
+/* header */
+.header_grassmorpshism {
+  background: rgba(0, 0, 0, 0.02) !important;
+  box-shadow: 0 0 20px 0 hsla(0, 0%, 100%, 0.038) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  /* border-radius: 100px !important; */
+  /* border: 1px solid var(--stroke, hsla(0, 0%, 100%, 0.2)) !important; */
+  backdrop-filter: blur(20px) !important;
+}
+
+.grassmorphism_bg {
+  background: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 0 20px 0 hsla(0, 0%, 100%, 0.1) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.ant-modal-content {
+  background: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 0 20px 0 hsla(0, 0%, 100%, 0.1) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--stroke, hsla(0, 0%, 100%, 0.2)) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.ant-modal-content svg {
+  color: #000000;
+}
+
+.welcome-bg {
+  /* background-image: url('/images/welcome-background.png'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/** steps */
+.ant-steps-item-title {
+  color: #09090d !important;
+  font-size: 3vh !important;
+  font-weight: bold;
+  font-family: 'WhyteInktrap', sans-serif !important;
+}
+
+.ant-steps-item-description {
+  color: #09090d !important;
+  font-size: 1.6vh !important;
+  font-family: 'InterTight', sans-serif !important;
+}
+
+.ant-steps-item-content {
+  margin: 1vh 0 !important;
+}
+
+.ant-collapse-item {
+  background: #e5e5e5;
+  margin: 2.5vh 0;
+  border: none !important;
+  border-radius: 15px !important;
+  padding: 1.5vh !important;
+}
+
+.ant-collapse-borderless {
+  background-color: transparent !important;
+  border: 0;
+}
+
+.ant-collapse-item:hover {
+  transition: ease-in-out;
+}
+
+span.ant-collapse-header-text {
+  color: #09090d;
+  font-family: 'WhyteInktrap', sans-serif !important;
+  font-size: 3vh;
+  font-weight: 600;
+}
+
+/** mobile responsiveness */
+@media (max-width: 768px) {
+  .ant-steps-item-title {
+    font-size: 2.5vh !important;
+  }
+
+  .ant-steps-item-description {
+    font-size: 1.5vh !important;
+  }
+
+  .ant-collapse-item {
+    margin: 1vh 0;
+  }
+
+  span.ant-collapse-header-text {
+    font-size: 2.5vh;
+  }
+}
+
+.ant-collapse-content-box {
+  color: #09090d !important;
+  font-size: 1.7vh;
+  font: medium;
+}
+
+.ant-collapse-expand-icon {
+  color: #09090d !important;
+}
+
+.ant-steps-item.ant-steps-item-finish .ant-steps-item-title,
+.ant-steps-item.ant-steps-item.ant-steps-item-finish
+  .ant-steps-item-description {
+  opacity: 0.6 !important;
+}
+
+.ant-slider.ant-slider-disabled .ant-slider-track {
+  background-color: #22babc !important;
+}
+
+.ant-slider.ant-slider-disabled .ant-slider-rail {
+  background-color: #9d9d9e !important;
+}
+
+.ant-select-selector {
+  color: #4d4d4d !important;
+  font-size: 1.7vh !important;
+  border: 1px solid #e5e5e5 !important;
+  width: 10em !important;
+  font-weight: medium;
+  font-family: 'InterTight', sans-serif;
+  border-radius: 40px !important;
+}
+
+/* components/ScrollImage.module.css */
+.ant-steps
+  .ant-steps-item-finish
+  > .ant-steps-item-container
+  > .ant-steps-item-tail::after {
+  background-color: #348687 !important;
+}
+
+span.ant-progress-text.ant-progress-text-end.ant-progress-text-outer {
+  color: #9d9d9e !important;
+}
+
+span.ant-progress-text.ant-progress-text-inner {
+  color: #9d9d9e !important;
+}
+
+.ant-progress-small:where(
+    .css-dev-only-do-not-override-3rel02
+  ).ant-progress-line,
+.ant-progress-small:where(
+    .css-dev-only-do-not-override-3rel02
+  ).ant-progress-line
+  .ant-progress-text
+  .anticon
+  .ant-progress-inner {
+  background: #474748 !important;
+}
+
+.ant-steps-item-icon {
+  background: #348888 !important;
+  border-color: #348888 !important;
+}
+
+.ant-steps-item.ant-steps-item-process.ant-steps-item-active {
+  opacity: 1 !important;
+}
+
+.ant-steps-item.ant-steps-item-process.ant-steps-item-active
+  .ant-steps-item-icon {
+  background: #22babc !important;
+  border-color: #22babc !important;
+}
+
+.ant-steps-item.ant-steps-item-finish svg {
+  color: white !important;
+}
+
+.ant-steps-item.ant-steps-item-finish {
+  opacity: 1 !important;
+}
+.ant-steps-item {
+  opacity: 0.2 !important;
+}
+
+/* Override Ant Design Checkbox color */
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #09090d !important; /* Change the background color when checked */
+  border-color: #09090d !important; /* Change the border color when checked */
+}
+
+/* Optional: Change the color of the checkmark */
+.ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: white !important; /* Change the checkmark color */
+}
+
+/* Change the border color of the checkbox when unchecked */
+.ant-checkbox-inner {
+  border-color: #09090d !important; /* Change the border color when unchecked */
+}
+
+.nsm7Bb-HzV7m-LgbsSe.hJDwNd-SxQuSe.i5vt6e-Ia7Qfc.uaxL4e-RbRzK {
+  max-width: 70vw !important;
+  width: 20vw !important;
+}
+
+/* Medium devices (tablets) */
+@media (max-width: 768px) {
+  .nsm7Bb-HzV7m-LgbsSe.hJDwNd-SxQuSe.i5vt6e-Ia7Qfc.uaxL4e-RbRzK {
+    max-width: 70vw !important;
+    width: 60vw !important;
+  }
+}
+
+/* Small devices (mobile) */
+@media (max-width: 480px) {
+  .nsm7Bb-HzV7m-LgbsSe.hJDwNd-SxQuSe.i5vt6e-Ia7Qfc.uaxL4e-RbRzK {
+    max-width: 70vw !important;
+    width: 70vw !important;
+  }
+}
+
+.alice-carousel__dots-item:not(.__custom):hover,
+.alice-carousel__dots-item:not(.__custom).__active {
+  background-color: #348888 !important;
+}
+
+.alice-carousel__dots-item:not(.__custom) {
+  background-color: #abe2e2 !important;
+}
+
+li.alice-carousel__stage-item.__active.__target {
+  width: auto !important;
+  margin-right: 10px !important;
+}
+
+.resume-enhancements,
+.resume-enhancements-no-formats {
+  font-family: 'Times New Roman', Times, serif !important;
+}
+
+.resume-enhancements span.newly-added {
+  background-color: #c2dbdb;
+  color: #09090d !important;
+}
+
+.resume-enhancements-no-formats span.newly-added {
+  background-color: white;
+  color: #09090d !important;
+}
+
+.resume-enhancements li,
+.resume-enhancements-no-formats li {
+  list-style: circle;
+  margin-left: 2vw;
+}
+
+.resume-enhancements header,
+.resume-enhancements-no-formats header {
+  align-items: center;
+  text-align: center;
+}
+
+.resume-enhancements a,
+.resume-enhancements-no-formats a {
+  text-decoration: underline;
+}
+
+.resume-enhancements header:first-child,
+.resume-enhancements-no-formats header:first-child {
+  font-weight: 900;
+}
+
+.resume-enhancements h2,
+.resume-enhancements-no-formats h2 {
+  font-weight: 900;
+  font-size: 2vh;
+}
+
+.resume-enhancements h3,
+.resume-enhancements-no-formats h3 {
+  font-weight: 700;
+}
+
+.resume-enhancements section p,
+.resume-enhancements-no-formats section p {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 5px; /* Optional: Add space between items */
+}
+
+.no-color-formatting span,
+.resume-enhancements-no-formats span {
+  color: #000000 !important;
+}
+
+.no-color-formatting .newly-added {
+  color: #000000 !important;
+}
+
+.cover-letter {
+  font-family: 'Times New Roman', Times, serif !important;
+}
+
+.cover-letter header {
+  display: none !important;
+}
+
+.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb {
+  font-family: 'InterTight', sans-serif !important;
+  font-weight: 700 !important;
+}
