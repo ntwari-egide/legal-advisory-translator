@@ -1,4 +1,4 @@
-# Docker file for building image for this Plaxis AI project for next js and tailwind
+# Docker file for building image for this Legal AdvisoryAI project for next js and tailwind
 
 # load the base image
 FROM node:20-slim AS base

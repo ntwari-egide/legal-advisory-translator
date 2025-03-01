@@ -11,10 +11,10 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 const defaultMeta = {
-  title: 'Plaxis AI | AI powered job search engine',
-  siteName: 'Plaxis AI',
+  title: 'Legal AdvisoryAI | AI powered job search engine',
+  siteName: 'Legal AdvisoryAI',
   description:
-    'Plaxis AI is an AI powered job search engine that helps you find the best jobs in any industry. We use machine learning to match you with the best jobs based on your skills and experience.',
+    'Legal AdvisoryAI is an AI powered job search engine that helps you find the best jobs in any industry. We use machine learning to match you with the best jobs based on your skills and experience.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
   url: 'https://plaxisai.com',
   type: 'website',
@@ -47,17 +47,17 @@ export default function Seo(props: SeoProps) {
       <title>{meta.title}</title>
       <meta
         name='title'
-        content='Plaxis AI | AI powered resume job matching engine'
+        content='Legal AdvisoryAI | AI powered resume job matching engine'
       />
       {/* Description */}
       <meta
         name='description'
-        content='Plaxis AI is an AI powered job search engine that helps you find the best jobs in any industry. We use machine learning to match you with the best jobs based on your skills and experience.'
+        content='Legal AdvisoryAI is an AI powered job search engine that helps you find the best jobs in any industry. We use machine learning to match you with the best jobs based on your skills and experience.'
       />
       {/* Keywords */}
       <meta
         name='keywords'
-        content='Plaxis AI, job search engine, AI powered job search engine, tech jobs, machine learning, job matching, job search, job search platform, job search website, job search app, job search tool, job search service, job search software, job search technology, job search company, job search site, job search engine website, job search engine app, job search engine tool, job search engine service, job search engine software, job search engine technology, job search engine company, job search engine site, job search engine platform, job search engine website, job search engine app, job search engine tool, job search engine service, job search engine software, job search engine technology, job search engine company, job search engine site, job search engine platform, job search engine website, job search engine app, job search engine tool, job search engine service, job search engine software, job search engine technology, job search engine company, job search engine site, job search engine platform'
+        content='Legal AdvisoryAI, job search engine, AI powered job search engine, tech jobs, machine learning, job matching, job search, job search platform, job search website, job search app, job search tool, job search service, job search software, job search technology, job search company, job search site, job search engine website, job search engine app, job search engine tool, job search engine service, job search engine software, job search engine technology, job search engine company, job search engine site, job search engine platform, job search engine website, job search engine app, job search engine tool, job search engine service, job search engine software, job search engine technology, job search engine company, job search engine site, job search engine platform, job search engine website, job search engine app, job search engine tool, job search engine service, job search engine software, job search engine technology, job search engine company, job search engine site, job search engine platform'
       />
       {/* Author */}
       <meta name='author' content='Egide Ntwari' />

@@ -1,4 +1,4 @@
-# Plaxis AI
+# Legal AdvisoryAI
 
 ## Features
 
