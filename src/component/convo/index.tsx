@@ -5,7 +5,7 @@ type ConvoProps = {
   timeAgo: string;
 };
 
-import ProfileImage from '../../../public/images/profile.jpg'
+import ProfileImage from "../../../public/images/profile.jpg";
 import Image from "next/image";
 
 const Convo = ({ content, timeAgo }: ConvoProps) => {
