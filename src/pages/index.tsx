@@ -25,6 +25,7 @@ export default function HomePage() {
 
   const [audioUrl, setAudioUrl] = React.useState<string | null>(null);
   const [adviceContent, setAdviceContent] = React.useState<string | null>()
+  const [adviceTitle, setAdviceTitle] = React.useState<string | null>()
 
   // Function to download the audio from the API
   const downloadAudio = async () => {
@@ -125,7 +126,7 @@ export default function HomePage() {
 
         <div className="w-[52%] flex-col space-y-8">
           <div className="container mx-auto p-4">
-            <AudioRecorder onRecordingComplete={handleRecordingComplete} onChange={setAdviceContent} />
+            <AudioRecorder onRecordingComplete={handleRecordingComplete} onChange={setAdviceContent} onChangeTitle={setAdviceTitle} />
           </div>
 
           {/* <h1 className="text-[3.7vh] font-medium">
@@ -212,7 +213,7 @@ export default function HomePage() {
 
               <div className="flex flex-col">
                 <h1 className="font-medium text-[#333333] text-[3.3vh]">
-                  F1 legal working advice - internship
+                  {adviceTitle}
                 </h1>
                 <h1 className="text-[#B2B2B2] text-[1.6vh] font-medium">
                   Spanish
@@ -222,7 +223,7 @@ export default function HomePage() {
 
             {/* <AudioPlayer audioUrl="https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3" /> */}
              {/* Audio Player */}
-             {audioUrl && adviceContent ? <AudioPlayer audioUrl={audioUrl} />:<>Record yourself!</>}
+             {audioUrl && adviceContent ? <AudioPlayer audioUrl={audioUrl} />:<p className=" text-center">Record yourself!</p>}
           </div>
         </div>
       </div>

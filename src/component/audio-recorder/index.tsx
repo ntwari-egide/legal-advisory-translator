@@ -12,12 +12,14 @@ interface AudioRecorderProps {
   onRecordingComplete?: (audioUrl: string, audioBlob: Blob) => void;
   onAdviceReceived?: (advice: any) => void;
   onChange?: (newAdviceContent: string) => void;  // New prop for onChange handler
+  onChangeTitle?: (newTitle: string) => void;  // New prop for onChange handler
 }
 
 const AudioRecorder: React.FC<AudioRecorderProps> = ({
   onRecordingComplete,
   onAdviceReceived,
-  onChange
+  onChange,
+  onChangeTitle
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
@@ -148,6 +150,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
       if (response.status === 200 && response.data) {
         // Extract the advice content from response.data.gpt_response
         const adviceContent = response.data.gpt_response;
+        const adviceTitle = response.data.query_text;
 
         // Pass the advice content to the parent component using onAdviceReceived
         if (onAdviceReceived) {
@@ -156,8 +159,11 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
 
         // Update the advice content in the parent component via onChange (if provided)
         if (onChange) {
-            console.log("advice", adviceContent)
           onChange(adviceContent);  // Calling onChange to update the parent
+        }
+
+        if(onChangeTitle){
+            onChangeTitle(adviceTitle);  // Calling onChangeTitle to update the parent
         }
   
         // Pass the advice data to the parent component if callback exists
