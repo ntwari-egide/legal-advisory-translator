@@ -24,13 +24,15 @@ export default function HomePage() {
   };
 
   const [audioUrl, setAudioUrl] = React.useState<string | null>(null);
-  const [adviceContent, setAdviceContent] = React.useState<string | null>()
-  const [adviceTitle, setAdviceTitle] = React.useState<string | null>()
+  const [adviceContent, setAdviceContent] = React.useState<string | null>();
+  const [adviceTitle, setAdviceTitle] = React.useState<string | null>();
 
   // Function to download the audio from the API
   const downloadAudio = async () => {
     try {
-      const response = await fetch("https://immigration-and-refugee-support.onrender.com/download-audio");
+      const response = await fetch(
+        "https://immigration-and-refugee-support.onrender.com/download-audio"
+      );
       if (!response.ok) {
         throw new Error("Failed to download the audio");
       }
@@ -126,7 +128,11 @@ export default function HomePage() {
 
         <div className="w-[52%] flex-col space-y-8">
           <div className="container mx-auto p-4">
-            <AudioRecorder onRecordingComplete={handleRecordingComplete} onChange={setAdviceContent} onChangeTitle={setAdviceTitle} />
+            <AudioRecorder
+              onRecordingComplete={handleRecordingComplete}
+              onChange={setAdviceContent}
+              onChangeTitle={setAdviceTitle}
+            />
           </div>
 
           {/* <h1 className="text-[3.7vh] font-medium">
@@ -144,7 +150,7 @@ export default function HomePage() {
             </span>
           </h1> */}
 
-        <h1 className="text-[3.7vh] font-medium">{adviceContent}</h1>
+          <h1 className="text-[3.7vh] font-medium">{adviceContent}</h1>
         </div>
 
         <div className="w-[40%] inter-tight">
@@ -222,8 +228,12 @@ export default function HomePage() {
             </div>
 
             {/* <AudioPlayer audioUrl="https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3" /> */}
-             {/* Audio Player */}
-             {audioUrl && adviceContent ? <AudioPlayer audioUrl={audioUrl} />:<p className=" text-center">Record yourself!</p>}
+            {/* Audio Player */}
+            {audioUrl && adviceContent ? (
+              <AudioPlayer audioUrl={audioUrl} />
+            ) : (
+              <p className=" text-center">Record yourself!</p>
+            )}
           </div>
         </div>
       </div>
