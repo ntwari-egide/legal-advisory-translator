@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { RiMore2Line } from "react-icons/ri";
 
 type ConvoProps = {
@@ -9,10 +10,11 @@ const Convo = ({ content, timeAgo }: ConvoProps) => {
   return (
     <div className="flex flex-row justify-between cursor-pointer hover:scale-[1.01] transition-all">
       <div className="flex-row flex space-x-4 justify-center items-center">
-        <img
+        <Image
           src={
             "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
           }
+          alt="image"
           className="w-10 h-10 rounded-full object-cover border"
         />
 
