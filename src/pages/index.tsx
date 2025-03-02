@@ -26,6 +26,7 @@ export default function HomePage() {
   const [audioUrl, setAudioUrl] = React.useState<string | null>(null);
   const [adviceContent, setAdviceContent] = React.useState<string | null>();
   const [adviceTitle, setAdviceTitle] = React.useState<string | null>();
+  const [language, setLanguage] = React.useState<string | null>();
 
   // Function to download the audio from the API
   const downloadAudio = async () => {
@@ -132,6 +133,7 @@ export default function HomePage() {
               onRecordingComplete={handleRecordingComplete}
               onChange={setAdviceContent}
               onChangeTitle={setAdviceTitle}
+              onChangeLanguage={setLanguage}
             />
           </div>
 
@@ -217,12 +219,12 @@ export default function HomePage() {
                 </svg>
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col w-[70%]">
                 <h1 className="font-medium text-[#333333] text-[3.3vh]">
                   {adviceTitle}
                 </h1>
                 <h1 className="text-[#B2B2B2] text-[1.6vh] font-medium">
-                  Spanish
+                  {language}
                 </h1>
               </div>
             </div>

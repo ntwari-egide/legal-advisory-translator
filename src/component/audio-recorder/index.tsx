@@ -13,6 +13,7 @@ interface AudioRecorderProps {
   onAdviceReceived?: (advice: any) => void;
   onChange?: (newAdviceContent: string) => void; // New prop for onChange handler
   onChangeTitle?: (newTitle: string) => void; // New prop for onChange handler
+  onChangeLanguage?: (newTitle: string) => void; // New prop for onChange handler
 }
 
 const AudioRecorder: React.FC<AudioRecorderProps> = ({
@@ -20,6 +21,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   onAdviceReceived,
   onChange,
   onChangeTitle,
+  onChangeLanguage
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
@@ -150,7 +152,8 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
       if (response.status === 200 && response.data) {
         // Extract the advice content from response.data.gpt_response
         const adviceContent = response.data.gpt_response;
-        const adviceTitle = response.data.query_text;
+        const adviceTitle = response.data.title;
+        const adviceLanguage = response.data.language;
 
         // Pass the advice content to the parent component using onAdviceReceived
         if (onAdviceReceived) {
@@ -165,6 +168,10 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
         if (onChangeTitle) {
           onChangeTitle(adviceTitle); // Calling onChangeTitle to update the parent
         }
+
+        if (onChangeLanguage) {
+            onChangeLanguage(adviceLanguage); // Calling onChangeTitle to update the parent
+          }
 
         // Pass the advice data to the parent component if callback exists
         if (onAdviceReceived) {
