@@ -11,6 +11,7 @@ interface AudioPlayerProps {
   trackTitle?: string;
 }
 
+
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioUrl, trackTitle }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);

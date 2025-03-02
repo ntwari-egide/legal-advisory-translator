@@ -8,6 +8,7 @@ import AudioPlayer from "@/component/audio-player";
 import AudioRecorder from "@/component/audio-recorder";
 import Convo from "@/component/convo";
 import Seo from "@/component/seo";
+import LogoImage from '../../public/images/logo.png'
 import Image from "next/image";
 import * as React from "react";
 import {
@@ -30,7 +31,7 @@ interface HistoryItem {
 }
 
 // Secret key for encryption - consider moving this to environment variables
-const SECRET_KEY = "your-secret-key";
+const SECRET_KEY = "afdasdfasfhafhlkasjfds";
 
 // Utility functions for encryption and decryption
 const encryptData = (data: any): string => {
@@ -168,35 +169,6 @@ export default function HomePage() {
     setIsNewRecording(false);
   };
 
-  // Function to download the audio from the API
-  const downloadAudio = async () => {
-    try {
-      const response = await fetch(
-        "https://immigration-and-refugee-support.onrender.com/download-audio"
-      );
-      if (!response.ok) {
-        throw new Error("Failed to download the audio");
-      }
-
-      const audioBlob = await response.blob(); // Get the audio as a Blob
-      setAudioBlob(audioBlob);
-      
-      // Convert to Base64 for storage
-      const audioBase64 = await blobToBase64(audioBlob);
-      
-      // Create object URL for playback
-      const audioUrl = URL.createObjectURL(audioBlob);
-      setAudioUrl(audioUrl);
-      
-      // Add current advice to history when new audio is downloaded
-      if (adviceContent && adviceTitle && language) {
-        addToHistory(audioBase64);
-      }
-    } catch (error) {
-      console.error("Error downloading the audio:", error);
-    }
-  };
-
   // Function to format timestamp to "X min ago" or "X hours ago"
   const formatTimeAgo = (timestamp: number): string => {
     const now = Date.now();
@@ -232,48 +204,13 @@ export default function HomePage() {
     setLanguage(item.language);
   };
 
-  // Call the function on component mount to download the audio
-  React.useEffect(() => {
-    if (isNewRecording) {
-      downloadAudio();
-    }
-  }, [adviceContent, isNewRecording]);
-
   return (
     <>
       <Seo title="Home" />
       <div className="flex flex-row p-4 h-screen space-x-8 inter-tight">
         <div className="w-[8%] bg-[#6629FF] h-full justify-between rounded-md flex flex-col py-8">
           <div className="w-full flex justify-center">
-            <svg
-              width="30"
-              height="30"
-              viewBox="0 0 50 50"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M42.1667 25.5C44.5122 23.1545 45.8299 19.9733 45.8299 16.6562C45.8299 13.3392 44.5122 10.158 42.1667 7.81249C39.8211 5.46698 36.64 4.14929 33.3229 4.14929C30.0059 4.14929 26.8247 5.46698 24.4792 7.81249L10.4167 21.875V39.5833H28.125L42.1667 25.5Z"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M33.3333 16.6667L4.16666 45.8333"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M36.4583 31.25H18.75"
-                stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <Image alt="logo" src={LogoImage} className="h-12 w-12 object-contain" />
           </div>
           <div className="flex flex-col justify-center items-center space-y-8">
             <RiHome2Line className="text-[#C2B6E1] cursor-pointer hover:scale-[1.07] transition-all text-xl" />
