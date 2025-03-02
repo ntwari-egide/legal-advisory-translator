@@ -23,6 +23,30 @@ export default function HomePage() {
     console.log("Recording completed:", audioUrl);
   };
 
+  const [audioUrl, setAudioUrl] = React.useState<string | null>(null);
+  const [adviceContent, setAdviceContent] = React.useState<string | null>()
+
+  // Function to download the audio from the API
+  const downloadAudio = async () => {
+    try {
+      const response = await fetch("https://immigration-and-refugee-support.onrender.com/download-audio");
+      if (!response.ok) {
+        throw new Error("Failed to download the audio");
+      }
+
+      const audioBlob = await response.blob(); // Get the audio as a Blob
+      const audioUrl = URL.createObjectURL(audioBlob); // Create a URL for the Blob
+      setAudioUrl(audioUrl); // Set the audio URL in state
+    } catch (error) {
+      console.error("Error downloading the audio:", error);
+    }
+  };
+
+  // Call the function on component mount to download the audio
+  React.useEffect(() => {
+    downloadAudio();
+  }, [adviceContent]);
+
   return (
     <>
       <Seo title="Home" />
@@ -101,10 +125,10 @@ export default function HomePage() {
 
         <div className="w-[52%] flex-col space-y-8">
           <div className="container mx-auto p-4">
-            <AudioRecorder onRecordingComplete={handleRecordingComplete} />
+            <AudioRecorder onRecordingComplete={handleRecordingComplete} onChange={setAdviceContent} />
           </div>
 
-          <h1 className="text-[3.7vh] font-medium">
+          {/* <h1 className="text-[3.7vh] font-medium">
             <span className="text-[#BFBFBF]">
               As an F-1 student in the United States, you are allowed to work{" "}
             </span>{" "}
@@ -117,7 +141,9 @@ export default function HomePage() {
               (like summer vacation). Would you like more details on a specific
               work authorization, or help navigating the application process?
             </span>
-          </h1>
+          </h1> */}
+
+        <h1 className="text-[3.7vh] font-medium">{adviceContent}</h1>
         </div>
 
         <div className="w-[40%] inter-tight">
@@ -194,7 +220,9 @@ export default function HomePage() {
               </div>
             </div>
 
-            <AudioPlayer audioUrl="https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3" />
+            {/* <AudioPlayer audioUrl="https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3" /> */}
+             {/* Audio Player */}
+             {audioUrl && adviceContent ? <AudioPlayer audioUrl={audioUrl} />:<>Record yourself!</>}
           </div>
         </div>
       </div>

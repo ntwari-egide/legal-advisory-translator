@@ -11,11 +11,13 @@ import axios from "axios";
 interface AudioRecorderProps {
   onRecordingComplete?: (audioUrl: string, audioBlob: Blob) => void;
   onAdviceReceived?: (advice: any) => void;
+  onChange?: (newAdviceContent: string) => void;  // New prop for onChange handler
 }
 
 const AudioRecorder: React.FC<AudioRecorderProps> = ({
   onRecordingComplete,
   onAdviceReceived,
+  onChange
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
@@ -29,6 +31,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   const audioBlobRef = useRef<Blob | null>(null);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
+
 
   const startRecording = async () => {
     try {
@@ -119,23 +122,20 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
 
   const uploadAudioForAdvice = async () => {
     if (!audioBlobRef.current) return;
-
+  
     try {
       setIsUploading(true);
       setUploadProgress(0);
-
+  
       // Create a FormData object to send the file
       const formData = new FormData();
-      formData.append("audio", audioBlobRef.current, "recording.webm");
-
-      // Replace this URL with your actual API endpoint
-      const apiUrl = "https://api.example.com/audio-advice";
-
+      formData.append("file", audioBlobRef.current, "recording.webm"); // Change "audio" to "file"
+  
+      // Updated API URL
+      const apiUrl = "https://immigration-and-refugee-support.onrender.com/process-audio/";
+  
       // Upload the audio file with progress tracking
       const response = await axios.post(apiUrl, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round(
             (progressEvent.loaded * 100) / (progressEvent.total || 100)
@@ -143,14 +143,28 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
           setUploadProgress(percentCompleted);
         },
       });
-
+  
       // Handle successful response
       if (response.status === 200 && response.data) {
+        // Extract the advice content from response.data.gpt_response
+        const adviceContent = response.data.gpt_response;
+
+        // Pass the advice content to the parent component using onAdviceReceived
+        if (onAdviceReceived) {
+          onAdviceReceived(adviceContent);
+        }
+
+        // Update the advice content in the parent component via onChange (if provided)
+        if (onChange) {
+            console.log("advice", adviceContent)
+          onChange(adviceContent);  // Calling onChange to update the parent
+        }
+  
         // Pass the advice data to the parent component if callback exists
         if (onAdviceReceived) {
           onAdviceReceived(response.data);
         }
-
+  
         // Show success message
         alert("Advice generated successfully!");
       }
