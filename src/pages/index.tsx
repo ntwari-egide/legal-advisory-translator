@@ -122,6 +122,42 @@ export default function HomePage() {
     setIsNewRecording(true);
   };
 
+  // Function to download the audio from the API
+  const downloadAudio = async () => {
+    try {
+      const response = await fetch(
+        "https://immigration-and-refugee-support.onrender.com/download-audio"
+      );
+      if (!response.ok) {
+        throw new Error("Failed to download the audio");
+      }
+
+      const audioBlob = await response.blob(); // Get the audio as a Blob
+      setAudioBlob(audioBlob);
+      
+      // Convert to Base64 for storage
+      const audioBase64 = await blobToBase64(audioBlob);
+      
+      // Create object URL for playback
+      const audioUrl = URL.createObjectURL(audioBlob);
+      setAudioUrl(audioUrl);
+      
+      // Add current advice to history when new audio is downloaded
+      if (adviceContent && adviceTitle && language) {
+        addToHistory(audioBase64);
+      }
+    } catch (error) {
+      console.error("Error downloading the audio:", error);
+    }
+  };
+
+  // Call the function on component mount to download the audio
+  React.useEffect(() => {
+    if (isNewRecording) {
+      downloadAudio();
+    }
+  }, [adviceContent, isNewRecording]);
+
   // Function to add current advice to history
   const addToHistory = async (audioData: string) => {
     if (!adviceContent || !adviceTitle || !language) return;
