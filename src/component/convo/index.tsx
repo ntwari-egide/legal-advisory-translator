@@ -11,7 +11,7 @@ const Convo = ({ content, timeAgo }: ConvoProps) => {
       <div className="flex-row flex space-x-4 justify-center items-center">
         <img
           src={
-            "https://images.pexels.com/photos/30933605/pexels-photo-30933605/free-photo-of-portrait-of-woman-with-curly-hair-at-sunset.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
           }
           className="w-10 h-10 rounded-full object-cover border"
         />

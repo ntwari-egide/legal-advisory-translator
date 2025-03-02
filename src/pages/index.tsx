@@ -334,9 +334,20 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="h-[45vh] overflow-y-auto">
+          {
+            audioUrl && adviceContent ? (<>
+            <div className="h-[45vh] overflow-y-auto">
             <h1 className="text-[3.7vh] font-medium">{adviceContent}</h1>
           </div>
+            </>) : (<>
+              <div className="flex flex-col justify-center items-center text-center">
+  <h1 className="text-[3vh] text-[#494949] font-semibold">No transcripts available</h1>
+  <p className="w-[80%] text-[2vh] font-medium text-[#616161]">
+    Transcripts will appear here once your audio is processed. Tap the <span className="text-[#494949]">recording button above</span> to get started and receive a transcript!
+  </p>
+</div>
+            </>)
+          }
         </div>
 
         <div className="w-[40%] inter-tight">
@@ -366,55 +377,68 @@ export default function HomePage() {
           </div>
 
           <div className="bg-[#F2F2F2] flex-col w-full h-[45vh] rounded-md p-4 items-start flex">
-            <div className="flex-row flex space-x-4 justify-center items-center">
-              <div className="bg-[#FE9EC6] h-24 w-24 rounded-full items-center justify-center flex">
-                <svg
-                  width="30"
-                  height="30"
-                  viewBox="0 0 50 50"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M42.1667 25.5C44.5122 23.1545 45.8299 19.9733 45.8299 16.6562C45.8299 13.3392 44.5122 10.158 42.1667 7.81249C39.8211 5.46698 36.64 4.14929 33.3229 4.14929C30.0059 4.14929 26.8247 5.46698 24.4792 7.81249L10.4167 21.875V39.5833H28.125L42.1667 25.5Z"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M33.3333 16.6667L4.16666 45.8333"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M36.4583 31.25H18.75"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+            {
+              audioUrl && adviceContent ? (
+                <><div className="flex-row flex space-x-4 justify-center items-center">
+                <div className="bg-[#FE9EC6] h-24 w-24 rounded-full items-center justify-center flex">
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 50 50"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M42.1667 25.5C44.5122 23.1545 45.8299 19.9733 45.8299 16.6562C45.8299 13.3392 44.5122 10.158 42.1667 7.81249C39.8211 5.46698 36.64 4.14929 33.3229 4.14929C30.0059 4.14929 26.8247 5.46698 24.4792 7.81249L10.4167 21.875V39.5833H28.125L42.1667 25.5Z"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M33.3333 16.6667L4.16666 45.8333"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M36.4583 31.25H18.75"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+  
+                <div className="flex flex-col w-[70%]">
+                  <h1 className="font-medium text-[#333333] text-[3.3vh]">
+                    {adviceTitle}
+                  </h1>
+                  <h1 className="text-[#B2B2B2] text-[1.6vh] font-medium">
+                    {language}
+                  </h1>
+                </div>
               </div>
-
-              <div className="flex flex-col w-[70%]">
-                <h1 className="font-medium text-[#333333] text-[3.3vh]">
-                  {adviceTitle}
-                </h1>
-                <h1 className="text-[#B2B2B2] text-[1.6vh] font-medium">
-                  {language}
-                </h1>
-              </div>
-            </div>
-
-            {/* Audio Player */}
-            {audioUrl && adviceContent ? (
-              <AudioPlayer audioUrl={audioUrl} />
-            ) : (
-              <p className="text-center">Record yourself!</p>
-            )}
+  
+              {/* Audio Player */}
+              {audioUrl && adviceContent ? (
+                <AudioPlayer audioUrl={audioUrl} />
+              ) : (
+                <p className="text-center">Record yourself!</p>
+              )}</>
+              ) : <>
+                <div className="w-full h-full flex justify-center items-center">
+                <div className="flex flex-col justify-center items-center text-center">
+                  <h1 className="text-[3vh] text-[#494949] font-semibold">No audio advice available</h1>
+                  <p className="w-[80%] text-[2vh] font-medium text-[#616161]">
+                    It looks quiet here! Tap the <span className="text-[#494949]">recording button above</span> to ask your question, and we'll deliver expert advice straight to you.
+                  </p>
+                </div>
+                </div>
+              </>
+            }
           </div>
         </div>
       </div>
