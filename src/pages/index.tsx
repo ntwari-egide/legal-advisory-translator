@@ -17,7 +17,7 @@ import {
   RiMore2Line,
   RiMoreFill,
 } from "react-icons/ri";
-import CryptoJS from "crypto-js"; // Import for encryption
+import CryptoJS from 'crypto-js'; // Import for encryption
 
 // Define a type for our history items
 interface HistoryItem {
@@ -25,7 +25,7 @@ interface HistoryItem {
   adviceContent: string;
   adviceTitle: string;
   language: string;
-  audioUrl: string;
+  audioData: string; // Base64 encoded audio data instead of URL
   timestamp: number;
 }
 
@@ -48,8 +48,41 @@ const generateId = (content: string, title: string): string => {
   return CryptoJS.SHA256(combinedString).toString().substring(0, 16);
 };
 
+// Convert Blob to Base64
+const blobToBase64 = (blob: Blob): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+};
+
+// Convert Base64 to Blob
+const base64ToBlob = (base64: string): Blob => {
+  const parts = base64.split(';base64,');
+  const contentType = parts[0].split(':')[1];
+  const byteCharacters = atob(parts[1]);
+  const byteArrays = [];
+
+  for (let i = 0; i < byteCharacters.length; i += 512) {
+    const slice = byteCharacters.slice(i, i + 512);
+    const byteNumbers = new Array(slice.length);
+    
+    for (let j = 0; j < slice.length; j++) {
+      byteNumbers[j] = slice.charCodeAt(j);
+    }
+    
+    const byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+
+  return new Blob(byteArrays, { type: contentType });
+};
+
 export default function HomePage() {
   const [audioUrl, setAudioUrl] = React.useState<string | null>(null);
+  const [audioBlob, setAudioBlob] = React.useState<Blob | null>(null);
   const [adviceContent, setAdviceContent] = React.useState<string | null>();
   const [adviceTitle, setAdviceTitle] = React.useState<string | null>();
   const [language, setLanguage] = React.useState<string | null>();
@@ -60,13 +93,13 @@ export default function HomePage() {
   // Load history from localStorage on component mount
   React.useEffect(() => {
     try {
-      const encryptedHistory = localStorage.getItem("adviceHistory");
+      const encryptedHistory = localStorage.getItem('adviceHistory');
       if (encryptedHistory) {
         const decryptedHistory = decryptData(encryptedHistory);
         setHistory(decryptedHistory);
       }
     } catch (error) {
-      console.error("Failed to load history:", error);
+      console.error('Failed to load history:', error);
     }
   }, []);
 
@@ -74,46 +107,47 @@ export default function HomePage() {
   const saveHistory = (updatedHistory: HistoryItem[]) => {
     try {
       const encryptedHistory = encryptData(updatedHistory);
-      localStorage.setItem("adviceHistory", encryptedHistory);
+      localStorage.setItem('adviceHistory', encryptedHistory);
       setHistory(updatedHistory);
     } catch (error) {
-      console.error("Failed to save history:", error);
+      console.error('Failed to save history:', error);
     }
   };
 
   // Track when new recording happens
   const handleRecordingComplete = (audioUrl: string, audioBlob: Blob) => {
     console.log("Recording completed:", audioUrl);
+    setAudioBlob(audioBlob);
     setIsNewRecording(true);
   };
 
   // Function to add current advice to history
-  const addToHistory = (audioUrl: string) => {
+  const addToHistory = async (audioData: string) => {
     if (!adviceContent || !adviceTitle || !language) return;
-
+    
     // Generate a unique ID for this advice
     const id = generateId(adviceContent, adviceTitle);
     setCurrentItemId(id);
-
+    
     // Only add to history if it's a new recording
     if (!isNewRecording) return;
-
+    
     // Check if this item already exists in history
-    const existingItemIndex = history.findIndex((item) => item.id === id);
-
+    const existingItemIndex = history.findIndex(item => item.id === id);
+    
     // If item exists, move it to the top (most recent) and update its data
     if (existingItemIndex !== -1) {
       const updatedItem: HistoryItem = {
         ...history[existingItemIndex],
-        audioUrl: audioUrl,
-        timestamp: Date.now(),
+        audioData: audioData,
+        timestamp: Date.now()
       };
-
+      
       const updatedHistory = [
         updatedItem,
-        ...history.filter((item) => item.id !== id),
+        ...history.filter(item => item.id !== id)
       ];
-
+      
       saveHistory(updatedHistory);
     } else {
       // Create new history item
@@ -122,14 +156,14 @@ export default function HomePage() {
         adviceContent: adviceContent,
         adviceTitle: adviceTitle,
         language: language,
-        audioUrl: audioUrl,
-        timestamp: Date.now(),
+        audioData: audioData,
+        timestamp: Date.now()
       };
-
+      
       const updatedHistory = [newHistoryItem, ...history].slice(0, 50); // Keep only latest 50 items
       saveHistory(updatedHistory);
     }
-
+    
     // Reset the new recording flag after saving
     setIsNewRecording(false);
   };
@@ -145,12 +179,18 @@ export default function HomePage() {
       }
 
       const audioBlob = await response.blob(); // Get the audio as a Blob
-      const audioUrl = URL.createObjectURL(audioBlob); // Create a URL for the Blob
-      setAudioUrl(audioUrl); // Set the audio URL in state
-
+      setAudioBlob(audioBlob);
+      
+      // Convert to Base64 for storage
+      const audioBase64 = await blobToBase64(audioBlob);
+      
+      // Create object URL for playback
+      const audioUrl = URL.createObjectURL(audioBlob);
+      setAudioUrl(audioUrl);
+      
       // Add current advice to history when new audio is downloaded
       if (adviceContent && adviceTitle && language) {
-        addToHistory(audioUrl);
+        addToHistory(audioBase64);
       }
     } catch (error) {
       console.error("Error downloading the audio:", error);
@@ -161,26 +201,35 @@ export default function HomePage() {
   const formatTimeAgo = (timestamp: number): string => {
     const now = Date.now();
     const diffInMinutes = Math.floor((now - timestamp) / (1000 * 60));
-
+    
     if (diffInMinutes < 60) {
       return `${diffInMinutes} min ago`;
     } else {
       const diffInHours = Math.floor(diffInMinutes / 60);
-      return `${diffInHours} hour${diffInHours > 1 ? "s" : ""} ago`;
+      return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
     }
   };
 
   // Load history item when clicked
-  const handleHistoryItemClick = (item: HistoryItem) => {
+  const handleHistoryItemClick = async (item: HistoryItem) => {
     // Set current item ID to prevent this from being saved as a new item
     setCurrentItemId(item.id);
     setIsNewRecording(false);
-
+    
+    // Convert stored Base64 audio data back to a playable URL
+    try {
+      const blob = base64ToBlob(item.audioData);
+      const url = URL.createObjectURL(blob);
+      setAudioUrl(url);
+      setAudioBlob(blob);
+    } catch (error) {
+      console.error("Error converting stored audio data:", error);
+    }
+    
     // Update the UI with the selected history item
     setAdviceContent(item.adviceContent);
     setAdviceTitle(item.adviceTitle);
     setLanguage(item.language);
-    setAudioUrl(item.audioUrl);
   };
 
   // Call the function on component mount to download the audio
@@ -300,12 +349,10 @@ export default function HomePage() {
           <div className="flex flex-col space-y-4 mt-[3vh] h-[43vh] overflow-y-auto">
             {/* Display history items */}
             {history.map((item, index) => (
-              <div
-                key={item.id}
+              <div 
+                key={item.id} 
                 onClick={() => handleHistoryItemClick(item)}
-                className={`cursor-pointer px-3 py-2 ${
-                  currentItemId === item.id ? "bg-[#F8F4FF] rounded-md" : ""
-                }`}
+                className={`cursor-pointer ${currentItemId === item.id ? 'bg-[#F8F4FF] rounded-md' : ''}`}
               >
                 <Convo
                   content={item.adviceTitle}
@@ -314,9 +361,7 @@ export default function HomePage() {
               </div>
             ))}
             {history.length === 0 && (
-              <p className="text-center text-gray-400">
-                No conversation history yet
-              </p>
+              <p className="text-center text-gray-400">No conversation history yet</p>
             )}
           </div>
 
