@@ -21,7 +21,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   onAdviceReceived,
   onChange,
   onChangeTitle,
-  onChangeLanguage
+  onChangeLanguage,
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
@@ -170,8 +170,8 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
         }
 
         if (onChangeLanguage) {
-            onChangeLanguage(adviceLanguage); // Calling onChangeTitle to update the parent
-          }
+          onChangeLanguage(adviceLanguage); // Calling onChangeTitle to update the parent
+        }
 
         // Pass the advice data to the parent component if callback exists
         if (onAdviceReceived) {

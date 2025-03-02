@@ -137,22 +137,9 @@ export default function HomePage() {
             />
           </div>
 
-          {/* <h1 className="text-[3.7vh] font-medium">
-            <span className="text-[#BFBFBF]">
-              As an F-1 student in the United States, you are allowed to work{" "}
-            </span>{" "}
-            under specific conditions and with certain restrictions. Here’s a
-            breakdown of your options: You can work up to 20 hours per week
-            during the academic year and full-time (40 hours) during school
-            breaks{" "}
-            <span className="text-[#E0E0E0]">
-              {" "}
-              (like summer vacation). Would you like more details on a specific
-              work authorization, or help navigating the application process?
-            </span>
-          </h1> */}
-
-          <h1 className="text-[3.7vh] font-medium">{adviceContent}</h1>
+          <div className="h-[45vh] overflow-x-scroll">
+            <h1 className="text-[3.7vh] font-medium">{adviceContent}</h1>
+          </div>
         </div>
 
         <div className="w-[40%] inter-tight">
